@@ -9,7 +9,7 @@ function clearText() {
 }
 watch(txt, (newValue) => {
   otherBtn.onclick = () => {
-    window.open(`https://${newValue}.com`, "_black").focus();
+    window.open(`https://${newValue}.com`, "_blank").focus();
   };
 });
 </script>
