@@ -12,6 +12,13 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
+/* button {
+  position: relative;
+  bottom: 70px;
+  color: #00bd7e;
+  transition: 0.4s;
+  padding: 3px; 
+} */
 </style>
 
 <script setup></script>
