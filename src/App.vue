@@ -1,6 +1,6 @@
 <script setup>
+import { ref } from "vue";
 import NewBtn from "./components/setButton.vue";
-import { ref, watch } from "vue";
 const name = "World";
 let txt = ref("");
 function clearText() {
@@ -20,7 +20,7 @@ function openWeb() {
     placeholder="Type In This Box!"
   />
   <a id="closeSvg" @click="clearText"
-    ><img src="../public/Close.png" style="width: 40px; height: 40px"
+    ><img src="/Close.png" style="width: 40px; height: 40px"
   /></a>
   <NewBtn id="otherBtn" class="green" @click="openWeb">{{ txt }}</NewBtn>
 </template>
