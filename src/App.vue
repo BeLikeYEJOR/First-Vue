@@ -1,6 +1,162 @@
+<script setup>
+import MenuSvg from "../src/components/icons/Menu.vue";
+let isSideBarOpen = false;
+import { onMounted } from "vue";
+import { gsap } from "gsap";
 
-<script setup></script>
+onMounted(() => {
+  const menuSvg = document.getElementById("MenuSvg");
+  const sideBar = document.getElementById("sideBar");
+  menuSvg.addEventListener("click", () => {
+    if (isSideBarOpen) {
+      gsap.to("#sideBar", {
+        right: "-90%",
+        duration: 1,
+        onComplete: () => (sideBar.style.display = "none"),
+      });
+      // sideBar.style.display = "none";
+      isSideBarOpen = false;
+    } else {
+      gsap.to("#sideBar", { right: "0", duration: 1 });
+      sideBar.style.display = "flex";
+      isSideBarOpen = true;
+    }
+  });
+});
+</script>
 
-<template></template>
+<template>
+  <MenuSvg id="MenuSvg"></MenuSvg>
+  <div id="sideBar">
+    <div id="SideBarLinks">
+      <a href="#">Home</a>
+      <a href="#">Search</a>
+      <a href="#">About</a>
+    </div>
+  </div>
+  <header>
+    <nav>
+      <h1>FOODIA AY</h1>
+      <div id="Links">
+        <a href="#">Home</a>
+        <a href="#">Search</a>
+        <a href="#">About</a>
+      </div>
+    </nav>
+  </header>
+</template>
 
-<style scoped></style>
+<style scoped>
+body {
+  margin: 0;
+  padding: 0;
+}
+nav {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: rgb(13, 0, 59);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  font-size: 3em;
+
+  left: 0%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+  /* border: 5px solid black; */
+}
+nav h1 {
+  transition: 0.4s;
+  margin-left: 10%;
+  cursor: pointer;
+}
+#MenuSvg {
+  display: none;
+}
+#sideBar #SideBarLinks {
+  display: none;
+}
+#sideBar {
+  overflow: hidden;
+}
+nav a {
+  text-decoration: none;
+  color: white;
+  background-color: transparent;
+  cursor: pointer;
+  width: 190px;
+  text-align: center;
+  border-radius: 20px;
+  transition: 0.4s;
+}
+nav a:hover {
+  background-color: brown;
+}
+nav #Links {
+  margin-left: auto;
+  display: flex;
+  gap: 50px;
+  margin-right: 20px;
+}
+@media (max-width: 405px) {
+  nav {
+    font-size: 2em;
+  }
+}
+@media (max-width: 1290px) {
+  nav {
+    font-size: 1.5em;
+  }
+}
+@media (max-width: 1020px) {
+  nav h1 {
+    font-size: 1em;
+    margin-left: 80px;
+  }
+}
+@media (max-width: 900px) {
+  nav {
+    display: none;
+  }
+  #MenuSvg {
+    display: flex;
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    z-index: 5;
+  }
+  #sideBar {
+    height: 100%;
+    width: 90%;
+    background-color: rgba(13, 0, 59, 0.5);
+    position: absolute;
+    right: -90%;
+    display: none;
+  }
+  #sideBar #SideBarLinks a {
+    text-decoration: none;
+    color: white;
+    font-weight: bolder;
+    height: 50px;
+    width: 90%;
+    background-color: brown;
+    border-radius: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  #sideBar #SideBarLinks {
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    position: relative;
+    top: 70px;
+    width: 100%;
+    right: 0;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+}
+</style>
