@@ -2,6 +2,7 @@
 import MenuSvg from "../src/components/icons/Menu.vue";
 let isSideBarOpen = false;
 import { onMounted } from "vue";
+import { RouterLink, RouterView } from "vue-router";
 import { gsap } from "gsap";
 
 onMounted(() => {
@@ -17,8 +18,11 @@ onMounted(() => {
       // sideBar.style.display = "none";
       isSideBarOpen = false;
     } else {
-      gsap.to("#sideBar", { right: "0", duration: 1 });
-      sideBar.style.display = "flex";
+      gsap.to("#sideBar", {
+        right: "0",
+        duration: 1,
+        onComplete: () => (sideBar.style.display = "flex"),
+      });
       isSideBarOpen = true;
     }
   });
@@ -29,24 +33,30 @@ onMounted(() => {
   <MenuSvg id="MenuSvg"></MenuSvg>
   <div id="sideBar">
     <div id="SideBarLinks">
-      <a href="#">Home</a>
-      <a href="#">Search</a>
-      <a href="#">About</a>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
     </div>
   </div>
   <header>
     <nav>
-      <h1>FOODIA AY</h1>
+      <h1>FoodIA AY</h1>
       <div id="Links">
-        <a href="#">Home</a>
-        <a href="#">Search</a>
-        <a href="#">About</a>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
       </div>
     </nav>
   </header>
+
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <style scoped>
+.router-link-active {
+  color: crimson;
+  font-weight: bolder;
+}
 body {
   margin: 0;
   padding: 0;
