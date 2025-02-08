@@ -1,9 +1,9 @@
 <script setup>
-import MenuSvg from "../src/components/icons/Menu.vue";
-let isSideBarOpen = false;
+import { gsap } from "gsap";
 import { onMounted } from "vue";
 import { RouterLink, RouterView } from "vue-router";
-import { gsap } from "gsap";
+import MenuSvg from "../src/components/icons/Menu.vue";
+let isSideBarOpen = false;
 
 onMounted(() => {
   const menuSvg = document.getElementById("MenuSvg");
@@ -30,29 +30,47 @@ onMounted(() => {
 </script>
 
 <template>
-  <MenuSvg id="MenuSvg"></MenuSvg>
-  <div id="sideBar">
-    <div id="SideBarLinks">
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-    </div>
-  </div>
-  <header>
-    <nav>
-      <h1>FoodIA AY</h1>
-      <div id="Links">
+  <div class="container">
+    <MenuSvg id="MenuSvg"></MenuSvg>
+    <div id="sideBar">
+      <div id="SideBarLinks">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </div>
-    </nav>
-  </header>
+    </div>
+    <header>
+      <nav>
+        <h1>FoodIA AAAY</h1>
+        <div id="Links">
+          <RouterLink to="/">Home</RouterLink>
+          <RouterLink to="/about">About</RouterLink>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <RouterView />
+    </main>
+  </div>
 
-  <main>
-    <RouterView />
-  </main>
 </template>
 
 <style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 85px;
+}
+main {
+  margin-top: 85px;
+  flex-grow: 1;
+}
 .router-link-active {
   color: #004cff;
   font-weight: bolder;
