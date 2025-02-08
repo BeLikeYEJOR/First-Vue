@@ -54,7 +54,7 @@ onMounted(() => {
 
 <style scoped>
 .router-link-active {
-  color: crimson;
+  color: #004cff;
   font-weight: bolder;
 }
 body {
@@ -63,7 +63,7 @@ body {
 }
 nav {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background-color: rgb(13, 0, 59);
+  background-color: #5588ff;
   position: fixed;
   width: 100%;
   top: 0;
@@ -102,7 +102,7 @@ nav a {
   transition: 0.4s;
 }
 nav a:hover {
-  background-color: brown;
+  background-color: #12bcff;
 }
 nav #Links {
   margin-left: auto;
@@ -127,6 +127,10 @@ nav #Links {
   }
 }
 @media (max-width: 900px) {
+  .router-link-active {
+    color: #004cff;
+    font-weight: bolder;
+  }
   nav {
     display: none;
   }
@@ -135,7 +139,7 @@ nav #Links {
     position: fixed;
     top: 10px;
     right: 20px;
-    z-index: 5;
+    z-index: 7;
   }
   #sideBar {
     height: 100%;
@@ -144,6 +148,7 @@ nav #Links {
     position: absolute;
     right: -90%;
     display: none;
+    z-index: 6;
   }
   #sideBar #SideBarLinks a {
     text-decoration: none;
@@ -151,7 +156,7 @@ nav #Links {
     font-weight: bolder;
     height: 50px;
     width: 90%;
-    background-color: brown;
+    background-color: #12bcff;
     border-radius: 20px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
