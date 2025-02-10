@@ -19,7 +19,7 @@ onMounted(() => {
       isSideBarOpen = false;
     } else {
       gsap.to("#sideBar", {
-        right: "0",
+        right: "0%",
         duration: 1,
         onComplete: () => (sideBar.style.display = "flex"),
       });
@@ -37,15 +37,13 @@ onMounted(() => {
       <RouterLink to="/about">About</RouterLink>
     </div>
   </div>
-  <header>
-    <nav>
-      <h1>FoodIA AY</h1>
-      <div id="Links">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </div>
-    </nav>
-  </header>
+  <nav>
+    <h1>FoodIA AY</h1>
+    <div id="Links">
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
+    </div>
+  </nav>
 
   <main>
     <RouterView />

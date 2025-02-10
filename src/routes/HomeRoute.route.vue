@@ -1,6 +1,8 @@
 <script async setup>
 import { onMounted } from "vue";
 import axios from "axios";
+import FruitCard from "../components/FruitCard.vue";
+
 onMounted(() => {
   const enterBtn = document.querySelector("#Enter");
   const TxtBox = document.querySelector("#txt");
@@ -31,11 +33,24 @@ onMounted(() => {
     <input type="checkbox" name="" id="checkbox" />
     <label for="checkbox">Vitamins</label>
   </div>
-  <input id="txt" type="text" placeholder="Banana" />
-  <button id="Enter">Enter</button>
+  <div id="layout">
+    <input id="txt" type="text" placeholder="Banana" />
+    <button id="Enter">Enter</button>
+  </div>
+  <FruitCard
+    ><template #Title>Banana</template
+    ><template #Vitamins>Vitamin C, Vitamin B6, Potasium</template>
+    <template #Nutrients
+      >sugar: 8g, carbohydrates: 4g, Fiber
+    </template></FruitCard
+  >
 </template>
 
 <style scoped>
+#layout {
+  display: flex;
+  flex-direction: column;
+}
 h1 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   position: absolute;
@@ -52,7 +67,7 @@ input[type="text"],
   transform: translate(-50%, -50%);
   outline: none;
   background-color: #4db8ff;
-  border: 2px solid #5588ff;
+  border: 4px solid #5588ff;
   border-radius: 100px;
   width: 200px;
   height: 40px;
