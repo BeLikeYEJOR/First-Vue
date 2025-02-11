@@ -1,8 +1,6 @@
 <script async setup>
-import { onMounted } from "vue";
 import axios from "axios";
-import FruitCard from "../components/FruitCard.vue";
-
+import { onMounted } from "vue";
 onMounted(() => {
   const enterBtn = document.querySelector("#Enter");
   const TxtBox = document.querySelector("#txt");
@@ -28,43 +26,28 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1>Search</h1>
-  <div id="checkboxD">
-    <input type="checkbox" name="" id="checkbox" />
-    <label for="checkbox">Vitamins</label>
-  </div>
-  <div id="layout">
-    <input id="txt" type="text" placeholder="Banana" />
+  <div class="layout">
+    <h1>Search</h1>
+    <div id="checkboxD">
+      <input id="txt" type="text" placeholder="Banana" />
+      <label for="checkbox" class="search-option">Vitamins
+        <input type="checkbox" name="" id="checkbox" />
+      </label>
+    </div>
     <button id="Enter">Enter</button>
   </div>
-  <FruitCard
-    ><template #Title>Banana</template
-    ><template #Vitamins>Vitamin C, Vitamin B6, Potasium</template>
-    <template #Nutrients
-      >sugar: 8g, carbohydrates: 4g, Fiber
-    </template></FruitCard
-  >
 </template>
 
 <style scoped>
-#layout {
-  display: flex;
-  flex-direction: column;
-}
 h1 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  position: absolute;
   top: 17%;
   left: 50%;
-  transform: translate(-50%, -50%);
   font-size: 5em;
 }
 input[type="text"],
 #Enter {
   text-align: center;
-  position: absolute;
-  top: 250px;
-  transform: translate(-50%, -50%);
   outline: none;
   background-color: #4db8ff;
   border: 4px solid #5588ff;
@@ -77,7 +60,6 @@ input[type="text"],
 #Enter {
   background-color: #5588ff !important;
   border: 5px solid #4db8ff !important;
-  top: 300px;
   cursor: pointer;
   font-weight: bolder;
   height: 50px;
@@ -88,7 +70,7 @@ input[type="text"],
   background-color: #4db8ff !important;
   border: 5px solid #5588ff !important;
 }
-#checkboxD {
+/* #checkboxD {
   position: relative;
   bottom: 210px;
   left: 140px;
@@ -98,5 +80,5 @@ input[type="text"],
   position: relative;
   left: 3px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
+} */
 </style>
