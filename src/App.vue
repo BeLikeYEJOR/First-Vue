@@ -1,43 +1,23 @@
 <script setup>
-import { gsap } from "gsap";
-import { onMounted } from "vue";
+import { ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import MenuSvg from "../src/components/icons/Menu.vue";
-let isSideBarOpen = false;
 
-onMounted(() => {
-  const menuSvg = document.getElementById("MenuSvg");
-  const sideBar = document.getElementById("sideBar");
-  menuSvg.addEventListener("click", () => {
-    if (isSideBarOpen) {
-      gsap.to("#sideBar", {
-        right: "-90%",
-        duration: 1,
-        onComplete: () => (sideBar.style.display = "none"),
-      });
-      // sideBar.style.display = "none";
-      isSideBarOpen = false;
-    } else {
-      gsap.to("#sideBar", {
-        right: "0",
-        duration: 1,
-        onComplete: () => (sideBar.style.display = "flex"),
-      });
-      isSideBarOpen = true;
-    }
-  });
-});
+let isSideBarOpen = ref(false);
+function toggleSidebar() {
+  isSideBarOpen.value = !isSideBarOpen.value;
+}
 </script>
 
 <template>
   <div class="container">
-    <MenuSvg id="MenuSvg"></MenuSvg>
-    <div id="sideBar">
-      <div id="SideBarLinks">
+    <MenuSvg id="MenuSvg" @click="toggleSidebar"></MenuSvg>
+    <Transition name="slide">
+      <div v-if="isSideBarOpen" class="sidebar">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </div>
-    </div>
+    </Transition>
     <header>
       <nav>
         <h1>FoodIA AAAY</h1>
@@ -55,6 +35,25 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.slide-enter-active, .slide-leave-active {
+  transition: transform 0.3s ease-in-out;
+}
+.slide-enter-from, .slide-leave-to {
+  transform: translateX(100%);
+}
+.slide-enter-to, .slide-leave-from {
+  transform: translateX(0);
+}
+.sidebar {
+  background-color: aliceblue;
+  height: 100%;
+  width: 200px;
+  background-color: rgba(13, 0, 59, 0.5);
+  position: fixed;
+  right: 0;
+  z-index: 6;
+  overflow: hidden;
+}
 .container {
   display: flex;
   flex-direction: column;
@@ -103,12 +102,6 @@ nav h1 {
 #MenuSvg {
   display: none;
 }
-#sideBar #SideBarLinks {
-  display: none;
-}
-#sideBar {
-  overflow: hidden;
-}
 nav a {
   text-decoration: none;
   color: white;
@@ -145,6 +138,7 @@ nav #Links {
   }
 }
 @media (max-width: 900px) {
+
   .router-link-active {
     color: #004cff;
     font-weight: bolder;
@@ -159,15 +153,7 @@ nav #Links {
     right: 20px;
     z-index: 7;
   }
-  #sideBar {
-    height: 100%;
-    width: 90%;
-    background-color: rgba(13, 0, 59, 0.5);
-    position: absolute;
-    right: -90%;
-    display: none;
-    z-index: 6;
-  }
+  
   #sideBar #SideBarLinks a {
     text-decoration: none;
     color: white;
