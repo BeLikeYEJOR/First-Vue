@@ -1,53 +1,71 @@
 <script async setup>
 import axios from "axios";
-import { onMounted } from "vue";
-import FruitCard from "@/components/FruitCard.vue";
-onMounted(() => {
-  const main = document.querySelector("main");
-  const enterBtn = document.querySelector("#Enter");
-  const TxtBox = document.querySelector("#txt");
-  async function getCall() {
-    let chosenFruit = TxtBox.value;
-    const data = await axios.get(
-      `https://foodia-ay-api.vercel.app/fruits?name=${chosenFruit}`
-    );
-    let result = data.data.result;
-    result.forEach((fruit) => {
-    //   console.log(`Name: ${fruit.name}`);
-    //   fruit.vitamins.forEach((vitamin) => {
-    //     console.log(`Vitamin for ${fruit.name}: ${vitamin}`);
-    //   });
-    //   for (const nutrient in fruit.nutrients) {
-    //     console.log(`Nutrient for ${fruit.name}: ${nutrient}`);
-    //   }
-    //   console.log("")
+import Card from "@/components/FruitCard.vue";
+import { onMounted, ref } from "vue";
 
-  });
-  }
-  enterBtn.addEventListener("click", getCall);
-});
+const items = ref([]);
+const search = ref("");
+async function getCall() {
+  const data = await axios.get(
+    `https://foodia-ay-api.vercel.app/fruits?name=${search.value}`
+  );
+  items.value = data.data.result;
+}
 </script>
 
 <template>
   <div class="layout">
     <h1>Search</h1>
     <div id="checkboxD">
-      <input id="txt" type="text" placeholder="Banana" />
+      <input id="txt" type="text" placeholder="Banana" v-model="search" />
       <label for="checkbox" class="search-option"
         >Vitamins
         <input type="checkbox" name="" id="checkbox" />
       </label>
     </div>
-    <button id="Enter">Enter</button>
+    <button id="Enter" @click="getCall">Enter</button>
+    <div id="result">
+      <Card v-for="item in items" :key="item.name">
+        <template #Title>{{ item.name }}</template>
+        <template #Vitamins>
+          <ul>
+            <li v-for="vitamin in item.vitamins">{{ vitamin }}</li>
+          </ul>
+        </template>
+        <template #Nutrients>
+          <ul>
+            <li v-for="nutrient in item.nutrient">{{ nutrient }}</li>
+          </ul></template
+        >
+      </Card>
+    </div>
   </div>
-  <main></main>
 </template>
 
 <style scoped>
+#result {
+  display: flex;
+  gap: 20px;
+  margin: 0 20px 20px 20px;
+  flex-wrap: wrap;
+}
+#result > * {
+  flex: 1;
+  min-width: 200px;
+  height: auto;
+}
+.search-option {
+  position: relative;
+  margin-left: -72px;
+  left: 100px;
+}
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 h1 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  top: 17%;
-  left: 50%;
   font-size: 5em;
 }
 input[type="text"],

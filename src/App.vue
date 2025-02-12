@@ -177,7 +177,6 @@ nav #Links {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
   #sideBar #SideBarLinks {
-    /* background-color: red; */
     display: flex;
     flex-direction: column;
     gap: 40px;
