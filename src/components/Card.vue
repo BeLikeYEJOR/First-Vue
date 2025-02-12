@@ -1,6 +1,8 @@
 <template>
   <div class="card-body">
-    <h2><slot name="title"></slot></h2>
+    <h2>
+      <slot name="title"></slot>
+    </h2>
     <slot></slot>
   </div>
 </template>

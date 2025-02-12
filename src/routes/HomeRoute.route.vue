@@ -1,49 +1,66 @@
 <script async setup>
+import Card from "@/components/Card.vue";
 import axios from "axios";
-import { onMounted } from "vue";
-onMounted(() => {
-  const enterBtn = document.querySelector("#Enter");
-  const TxtBox = document.querySelector("#txt");
-  async function getCall() {
-    let chosenFruit = TxtBox.value;
-    const data = await axios.get(
-      `https://foodia-ay-api.vercel.app/fruits?name=${chosenFruit}`
-    );
-    let result = data.data.result;
-    result.forEach((fruit) => {
-      console.log(`Name: ${fruit.name}`);
-      fruit.vitamins.forEach((vitamin) => {
-        console.log(`Vitamin for ${fruit.name}: ${vitamin}`);
-      });
-      for (const nutrient in fruit.nutrients) {
-        console.log(`Nutrient for ${fruit.name}: ${nutrient}`);
-      }
-      console.log("");
-    });
-  }
-  enterBtn.addEventListener("click", getCall);
-});
+import { ref } from "vue";
+
+const items = ref([]);
+const searchTerm = ref("");
+
+async function getCall() {
+  const data = await axios.get(
+    `https://foodia-ay-api.vercel.app/fruits?name=${searchTerm.value}`
+  );
+  items.value = data.data.result;
+}
 </script>
 
 <template>
   <div class="layout">
     <h1>Search</h1>
     <div id="checkboxD">
-      <input id="txt" type="text" placeholder="Banana" />
+      <input id="txt" type="text" placeholder="Banana" v-model="searchTerm" @keyup.enter="getCall" />
       <label for="checkbox" class="search-option">Vitamins
         <input type="checkbox" name="" id="checkbox" />
       </label>
     </div>
-    <button id="Enter">Enter</button>
+    <button id="Enter" @click="getCall">Enter</button>
+    <hr style="width: 100%; margin: 12px;">
+    <div class="result-layout">
+      <Card v-for="item in items" :key="item.id">
+        <template #title>{{ item.name }}</template>
+        <ul>
+          <li v-for="vitamin in item.vitamins">{{ vitamin }}</li>
+        </ul>
+      </Card>
+    </div>
   </div>
 </template>
 
 <style scoped>
+* {
+  --primary-color: #4db8ff;
+  --secondary-color: #5588ff;
+  --font-color: white;
+}
+
 .layout {
   display: flex;
+  gap: 8px;
   flex-direction: column;
   align-items: center;
 }
+.result-layout {
+  padding: 20px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 20px 20px 20px;
+}
+.result-layout > * {
+  flex: 1;
+  height: auto;
+}
+
 .search-option {
   position: relative;
   margin-left: -72px;
@@ -51,25 +68,23 @@ onMounted(() => {
 }
 h1 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  top: 17%;
-  left: 50%;
   font-size: 5em;
 }
 input[type="text"],
 #Enter {
   text-align: center;
   outline: none;
-  background-color: #4db8ff;
-  border: 2px solid #5588ff;
+  background-color: var(--primary-color);
+  border: 2px solid var(--secondary-color);
   border-radius: 100px;
   width: 200px;
   height: 40px;
   font-size: 2rem;
-  color: white;
+  color: var(--font-color);
 }
 #Enter {
-  background-color: #5588ff !important;
-  border: 5px solid #4db8ff !important;
+  background-color: var(--secondary-color) !important;
+  border: 5px solid var(--primary-color) !important;
   cursor: pointer;
   font-weight: bolder;
   height: 50px;
@@ -77,18 +92,7 @@ input[type="text"],
   transition: 0.5s;
 }
 #Enter:hover {
-  background-color: #4db8ff !important;
-  border: 5px solid #5588ff !important;
+  background-color: var(--primary-color) !important;
+  border: 5px solid var(--secondary-color) !important;
 }
-/* #checkboxD {
-  position: relative;
-  bottom: 210px;
-  left: 140px;
-  transform: translate(-50%, -50%);
-}
-#checkboxD label {
-  position: relative;
-  left: 3px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-} */
 </style>
