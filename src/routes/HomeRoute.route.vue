@@ -1,7 +1,9 @@
 <script async setup>
 import axios from "axios";
 import { onMounted } from "vue";
+import FruitCard from "@/components/FruitCard.vue";
 onMounted(() => {
+  const main = document.querySelector("main");
   const enterBtn = document.querySelector("#Enter");
   const TxtBox = document.querySelector("#txt");
   async function getCall() {
@@ -11,15 +13,16 @@ onMounted(() => {
     );
     let result = data.data.result;
     result.forEach((fruit) => {
-      console.log(`Name: ${fruit.name}`);
-      fruit.vitamins.forEach((vitamin) => {
-        console.log(`Vitamin for ${fruit.name}: ${vitamin}`);
-      });
-      for (const nutrient in fruit.nutrients) {
-        console.log(`Nutrient for ${fruit.name}: ${nutrient}`);
-      }
-      console.log("");
-    });
+    //   console.log(`Name: ${fruit.name}`);
+    //   fruit.vitamins.forEach((vitamin) => {
+    //     console.log(`Vitamin for ${fruit.name}: ${vitamin}`);
+    //   });
+    //   for (const nutrient in fruit.nutrients) {
+    //     console.log(`Nutrient for ${fruit.name}: ${nutrient}`);
+    //   }
+    //   console.log("")
+
+  });
   }
   enterBtn.addEventListener("click", getCall);
 });
@@ -30,12 +33,14 @@ onMounted(() => {
     <h1>Search</h1>
     <div id="checkboxD">
       <input id="txt" type="text" placeholder="Banana" />
-      <label for="checkbox" class="search-option">Vitamins
+      <label for="checkbox" class="search-option"
+        >Vitamins
         <input type="checkbox" name="" id="checkbox" />
       </label>
     </div>
     <button id="Enter">Enter</button>
   </div>
+  <main></main>
 </template>
 
 <style scoped>
